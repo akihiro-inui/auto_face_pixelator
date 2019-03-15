@@ -20,8 +20,10 @@ while True:
 
     # Display the results
     for top, right, bottom, left in face_locations:
-        # Draw a box around the face
-        cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
+        # Resize to small size
+        small = cv2.resize(frame[top:bottom, left:right], None, fx=0.05, fy=0.05, interpolation=cv2.INTER_NEAREST)
+        # Resize back to original size (face area)
+        frame[top:bottom, left:right] = cv2.resize(small, frame[top:bottom, left:right].shape[:2][::-1], interpolation=cv2.INTER_NEAREST)
 
     # Display the resulting image
     cv2.imshow('Video', frame)

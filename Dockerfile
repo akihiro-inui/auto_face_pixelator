@@ -32,7 +32,7 @@ RUN cd ~ && \
 
 ## install required libraries
 COPY requirements.txt /app/requirements.txt
-#COPY face_detector.py /app/face_detector.py
+#COPY face_mosaic.py /app/face_mosaic.py
 ADD . /app
 WORKDIR /app
 RUN pip install -r requirements.txt
