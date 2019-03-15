@@ -9,9 +9,9 @@ Why not automate it?
 Detect face and apply mosaic effect in realtime
 
 # Installation
-docker build .
-pip install -r requirements.txt
-python face_mosaic_demo.py
+docker build .  
+pip install -r requirements.txt  
+python face_mosaic_demo.py  
 
 # Steps
 1. Locally implement auto face -- done
