@@ -16,4 +16,5 @@ python face_mosaic_demo.py
 # Steps
 1. Locally implement auto face pixelator -- done
 2. Dockernize -- done
-2. Probably make API -- on the way
+3. Probably make API -- on the way
+4. Mobile app....?
