@@ -1,3 +1,5 @@
 dlib
 opencv-python
 face_recognition
+flask
+werkzeug
