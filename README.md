@@ -18,4 +18,3 @@ Access to "0.0.0.0:8000" on your browser
 2. Dockernize -- done　　
 3. Probably make API -- done　　
 4. Moblie app..? -- under consideration　　
-
