@@ -32,11 +32,19 @@ RUN cd ~ && \
 
 ## install required libraries
 COPY requirements.txt /app/requirements.txt
-#COPY face_mosaic.py /app/face_mosaic.py
+COPY realtime_demo.py /app/realtime_demo.py
+COPY image_process.py /app/image_process.py
+COPY server.py /app/server.py
+COPY __init__.py /app/__init__.py
+
+#COPY realtime_demo.py /app/realtime_demo.py
 ADD . /app
 WORKDIR /app
-RUN pip install -r requirements.txt
+RUN pip3 install -r requirements.txt
 COPY . /app
 
-## This is the runtime command for the container
-CMD python3 face_detector.py
+## This is for web app
+CMD python3 server.py
+
+# Uncomment this line for realtime application
+# CMD python3 realtime_demo.py

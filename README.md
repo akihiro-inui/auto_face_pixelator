@@ -2,19 +2,19 @@
 Facial detection x Pixelator (Mosaic)
 
 # Idea
-While I was writting my blog, I realized it was troublesome to pixelate people's faces in my photos.
+While I was writting my blog, I realized it was troublesome to pixelate(mosaic) people's faces in my photos.
 Why not automate it?
 
 # How it works
-Detect face and apply mosaic effect in realtime
+Detect face and apply mosaic effect in Realtime & Flask Web App
 
 # Installation
-docker build .  
-pip install -r requirements.txt  
-python face_mosaic_demo.py  
+Run "docker build . -t mosaic"  
+Run "docker run -d -p 8000:5000 mosaic"  
+Access to "0.0.0.0:8000" on your browser
 
-# Steps
-1. Locally implement auto face pixelator -- done
-2. Dockernize -- done
-3. Probably make API -- on the way
-4. Mobile app....?
+# Milestones
+1. Locally implement auto face -- done　　
+2. Dockernize -- done　　
+3. Probably make API -- done　　
+4. Moblie app..? -- under consideration　　
