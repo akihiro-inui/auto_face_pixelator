@@ -35,6 +35,7 @@ COPY requirements.txt /app/requirements.txt
 COPY realtime_demo.py /app/realtime_demo.py
 COPY image_process.py /app/image_process.py
 COPY server.py /app/server.py
+COPY api.py /app/api.py
 COPY __init__.py /app/__init__.py
 
 #COPY realtime_demo.py /app/realtime_demo.py
@@ -43,8 +44,11 @@ WORKDIR /app
 RUN pip3 install -r requirements.txt
 COPY . /app
 
+# This is API
+CMD python3 api.py
+
 ## This is for web app
-CMD python3 server.py
+#CMD python3 server.py
 
 # Uncomment this line for realtime application
 # CMD python3 realtime_demo.py
