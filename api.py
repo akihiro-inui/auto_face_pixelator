@@ -2,7 +2,9 @@ import os
 import io
 import numpy as np
 import cv2
-from flask import Flask, render_template, request, redirect, url_for, send_from_directory
+import jsonpickle
+from PIL import Image
+from flask import Flask, render_template, request, redirect, url_for, send_from_directory, Response, helpers
 from image_process import mosaic
 from werkzeug import secure_filename
 
@@ -47,20 +49,30 @@ def send():
         raw_img = cv2.resize(img, (IMAGE_WIDTH, int(IMAGE_WIDTH*img.shape[0]/img.shape[1])))
 
         # Save raw(small) image
-        raw_img_url = os.path.join(app.config['UPLOAD_FOLDER'], 'raw_' + filename)
-        cv2.imwrite(raw_img_url, raw_img)
+        #raw_img_url = os.path.join(app.config['UPLOAD_FOLDER'], 'raw_' + filename)
+        #cv2.imwrite(raw_img_url, raw_img)
 
         # Apply mosaic effect
         mosaic_img = mosaic(raw_img)
 
         # Save modified image
-        mosaic_img_url = os.path.join(app.config['UPLOAD_FOLDER'], 'mosaic_' + filename)
-        cv2.imwrite(mosaic_img_url, mosaic_img)
+        #mosaic_img_url = os.path.join(app.config['UPLOAD_FOLDER'], 'mosaic_' + filename)
+        #cv2.imwrite(mosaic_img_url, mosaic_img)
 
-        return render_template('index.html', raw_img_url=raw_img_url, mosaic_img_url=mosaic_img_url)
+        # build a response dict to send back to client
+        #response = {'message': 'image received. data={}x{}'.format(mosaic_img.shape[1], mosaic_img.shape[0])}
+        # encode response using jsonpickle
 
-    else:
-        return redirect(url_for('index'))
+        img_crop_pil = Image.fromarray(mosaic_img)
+        byte_io = io.BytesIO()
+        img_crop_pil.save(byte_io, format="PNG")
+        #byte_io.close()
+        #img.save(buf, 'png')
+        response = helpers.make_response(byte_io.getvalue())
+        response.headers["Content-type"] = "Image"
+        response_pickled = jsonpickle.encode(response)
+
+        return Response(response=response_pickled, status=200, mimetype="application/json")
 
 
 @app.route('/images/<filename>')
@@ -70,4 +82,4 @@ def uploaded_file(filename):
 
 if __name__ == '__main__':
     app.debug = True
-    app.run(app.run(host='0.0.0.0', port=5000))
+    app.run(app.run(host='0.0.0.0', port=8000))
