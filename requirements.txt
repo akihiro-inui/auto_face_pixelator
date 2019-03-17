@@ -1,5 +1,6 @@
-dlib
+cmake
 opencv-python
+dlib
 face_recognition
 flask
 werkzeug
