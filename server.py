@@ -3,7 +3,7 @@ import io
 import numpy as np
 import cv2
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory
-from image_process import mosaic
+from auto_face_pixelator.image_process import mosaic
 from werkzeug import secure_filename
 
 
@@ -70,4 +70,5 @@ def uploaded_file(filename):
 
 if __name__ == '__main__':
     app.debug = True
-    app.run(app.run(host='0.0.0.0', port=5000))
+    app.run(app.run())
+    #app.run(app.run(host='0.0.0.0', port=5000))

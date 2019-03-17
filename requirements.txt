@@ -5,3 +5,4 @@ face_recognition
 flask
 werkzeug
 gunicorn
+jsonpickle
