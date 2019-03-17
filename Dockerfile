@@ -45,10 +45,7 @@ RUN pip3 install -r requirements.txt
 COPY . /app
 
 # This is API
-CMD python3 api.py
+#CMD python3 api.py
 
 ## This is for web app
-#CMD python3 server.py
-
-# Uncomment this line for realtime application
-# CMD python3 realtime_demo.py
+CMD python3 server.py
