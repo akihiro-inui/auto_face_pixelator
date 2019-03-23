@@ -1,0 +1,10 @@
+version: '2'
+services:
+  web:
+    build: .
+    ports:
+    - "5000:5000"
+    volumes:
+    - .:/auto_face_pixelator
+    environment:
+    - PORT:5000
