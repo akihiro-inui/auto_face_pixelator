@@ -1,9 +1,17 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on March 17
+Mosaic server
+@author: Akihiro Inui
+"""
+
 import os
 import io
 import numpy as np
 import cv2
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory
-from auto_face_pixelator.image_process import mosaic
+from image_process import mosaic, sunglasses
 from werkzeug import secure_filename
 
 
@@ -11,9 +19,10 @@ app = Flask(__name__)
 
 UPLOAD_FOLDER = './images'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'PNG', 'JPG'])
-IMAGE_WIDTH = 640
+IMAGE_WIDTH = 512
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SECRET_KEY'] = os.urandom(24)
+sunglasses_img_data = cv2.imread("./assets/sunglasses.png")
 
 
 def allowed_file(filename):
@@ -51,13 +60,13 @@ def send():
         cv2.imwrite(raw_img_url, raw_img)
 
         # Apply mosaic effect
-        mosaic_img = mosaic(raw_img)
+        modified_img = mosaic(raw_img)
 
         # Save modified image
-        mosaic_img_url = os.path.join(app.config['UPLOAD_FOLDER'], 'mosaic_' + filename)
-        cv2.imwrite(mosaic_img_url, mosaic_img)
+        modified_img_url = os.path.join(app.config['UPLOAD_FOLDER'], 'modified_' + filename)
+        cv2.imwrite(modified_img_url, modified_img)
 
-        return render_template('index.html', raw_img_url=raw_img_url, mosaic_img_url=mosaic_img_url)
+        return render_template('index.html', raw_img_url=raw_img_url, mosaic_img_url=modified_img_url)
 
     else:
         return redirect(url_for('index'))
@@ -70,5 +79,4 @@ def uploaded_file(filename):
 
 if __name__ == '__main__':
     app.debug = True
-    app.run(app.run())
-    #app.run(app.run(host='0.0.0.0', port=5000))
+    app.run(app.run(debug=True, host='0.0.0.0'))
