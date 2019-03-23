@@ -34,6 +34,7 @@ RUN cd ~ && \
 COPY requirements.txt /auto_face_pixelator/requirements.txt
 COPY realtime_demo.py /auto_face_pixelator/realtime_demo.py
 COPY image_process.py /auto_face_pixelator/image_process.py
+COPY templates /auto_face_pixelator/
 COPY server.py /auto_face_pixelator/server.py
 COPY api.py /auto_face_pixelator/api.py
 COPY __init__.py /auto_face_pixelator/__init__.py
@@ -48,9 +49,7 @@ COPY . /auto_face_pixelator
 #CMD python3 api.py
 
 ## This is for web app
-#CMD python3 server.py
-
+CMD python3 server.py
 # flaskアプリケーションの起動
-ENV FLASK_APP /auto_face_pixelator/server.py
-CMD flask run -h 0.0.0.0 -p 8000
-
+#ENV FLASK_APP /auto_face_pixelator/server.py
+#CMD flask run

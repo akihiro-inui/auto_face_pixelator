@@ -1,3 +1,12 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on March 17
+Realtime demo for  face mosaic
+@author: Akihiro Inui
+"""
+
+
 # import libraries
 import cv2
 import face_recognition

@@ -1,10 +1,18 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on March 17
+Mosaic API
+@author: Akihiro Inui
+"""
+
 import os
 import io
 import numpy as np
 import cv2
 import jsonpickle
 from PIL import Image
-from flask import Flask, render_template, request, redirect, url_for, send_from_directory, Response, helpers
+from flask import Flask, render_template, request, send_from_directory, Response, helpers
 from image_process import mosaic
 from werkzeug import secure_filename
 
@@ -48,26 +56,16 @@ def send():
         # Small image
         raw_img = cv2.resize(img, (IMAGE_WIDTH, int(IMAGE_WIDTH*img.shape[0]/img.shape[1])))
 
-        # Save raw(small) image
-        #raw_img_url = os.path.join(app.config['UPLOAD_FOLDER'], 'raw_' + filename)
-        #cv2.imwrite(raw_img_url, raw_img)
-
         # Apply mosaic effect
         mosaic_img = mosaic(raw_img)
+        mosaic_img_url = os.path.join(app.config['UPLOAD_FOLDER'], 'mosaic_' + filename)
 
-        # Save modified image
-        #mosaic_img_url = os.path.join(app.config['UPLOAD_FOLDER'], 'mosaic_' + filename)
-        #cv2.imwrite(mosaic_img_url, mosaic_img)
-
-        # build a response dict to send back to client
-        #response = {'message': 'image received. data={}x{}'.format(mosaic_img.shape[1], mosaic_img.shape[0])}
-        # encode response using jsonpickle
-
+        # Convert numpy array to binary
         img_crop_pil = Image.fromarray(mosaic_img)
         byte_io = io.BytesIO()
         img_crop_pil.save(byte_io, format="PNG")
-        #byte_io.close()
-        #img.save(buf, 'png')
+
+        # Create response
         response = helpers.make_response(byte_io.getvalue())
         response.headers["Content-type"] = "Image"
         response_pickled = jsonpickle.encode(response)
@@ -82,4 +80,4 @@ def uploaded_file(filename):
 
 if __name__ == '__main__':
     app.debug = True
-    app.run(app.run())
+    app.run(app.run(debug=True, host='0.0.0.0'))
