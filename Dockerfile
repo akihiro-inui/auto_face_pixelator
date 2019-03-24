@@ -45,11 +45,15 @@ WORKDIR /auto_face_pixelator
 RUN pip3 install -r requirements.txt
 COPY . /auto_face_pixelator
 
-# This is API
-#CMD python3 api.py
+# Port forwardnig
+EXPOSE 5000
 
 ## This is for web app
 CMD python3 server.py
-# flaskアプリケーションの起動
+
+# This is API
+#CMD python3 api.py
+
+# Launch Flask app
 #ENV FLASK_APP /auto_face_pixelator/server.py
 #CMD flask run
