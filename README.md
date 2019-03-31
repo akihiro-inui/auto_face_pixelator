@@ -16,6 +16,7 @@ Access to "0.0.0.0:5000" on your browser
 
 # Screeenshot
 If it runs successfully, it should look like this.
+![Screenshot](screenshot.png)
 
 # Milestones
 1. Locally implement auto face -- done　　
