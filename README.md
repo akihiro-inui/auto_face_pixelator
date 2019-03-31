@@ -14,7 +14,7 @@ Run "docker build . -t auto_mosaic"
 Run "docker run -d -p 5000:5000 auto_mosaic"  
 Access to "0.0.0.0:5000" on your browser
 
-# Sample
+# Exsample
 If it runs successfully, it should look like this.
 ![Screenshot](screenshot.png)
 
