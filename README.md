@@ -9,6 +9,7 @@ Why not automate it?
 Detect face and apply mosaic effect in Realtime & Flask Web App
 
 # Installation
+Get Docker of you don't have.
 Run "docker build . -t auto_mosaic"  
 Run "docker run -d -p 5000:5000 auto_mosaic"  
 Access to "0.0.0.0:5000" on your browser
@@ -20,7 +21,3 @@ If it runs successfully, it should look like this.
 1. Locally implement auto face -- done　　
 2. Dockernize -- done　　
 3. Probably make API -- done　　
-
-
-
-
