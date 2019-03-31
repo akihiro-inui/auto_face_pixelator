@@ -11,7 +11,7 @@ import io
 import numpy as np
 import cv2
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory
-from image_process import mosaic, sunglasses
+from image_process import mosaic
 from werkzeug import secure_filename
 
 
@@ -22,7 +22,6 @@ ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'PNG', 'JPG'])
 IMAGE_WIDTH = 512
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SECRET_KEY'] = os.urandom(24)
-sunglasses_img_data = cv2.imread("./assets/sunglasses.png")
 
 
 def allowed_file(filename):
@@ -59,7 +58,7 @@ def send():
         raw_img_url = os.path.join(app.config['UPLOAD_FOLDER'], 'raw_' + filename)
         cv2.imwrite(raw_img_url, raw_img)
 
-        # Apply mosaic effect
+        # Apply mosaic effects
         modified_img = mosaic(raw_img)
 
         # Save modified image
@@ -67,7 +66,6 @@ def send():
         cv2.imwrite(modified_img_url, modified_img)
 
         return render_template('index.html', raw_img_url=raw_img_url, mosaic_img_url=modified_img_url)
-
     else:
         return redirect(url_for('index'))
 
@@ -78,5 +76,7 @@ def uploaded_file(filename):
 
 
 if __name__ == '__main__':
-    app.debug = True
-    app.run(app.run(debug=True, host='0.0.0.0'))
+    app.jinja_env.cache = {}
+    HOST = '0.0.0.0'
+    PORT = 5000
+    app.run(app.run(debug=False, host=HOST, port=PORT))

@@ -30,30 +30,14 @@ RUN cd ~ && \
     cd  dlib/ && \
     python3 setup.py install --yes USE_AVX_INSTRUCTIONS
 
-## install required libraries
-COPY requirements.txt /auto_face_pixelator/requirements.txt
-COPY realtime_demo.py /auto_face_pixelator/realtime_demo.py
-COPY image_process.py /auto_face_pixelator/image_process.py
-COPY templates /auto_face_pixelator/
-COPY server.py /auto_face_pixelator/server.py
-COPY api.py /auto_face_pixelator/api.py
-COPY __init__.py /auto_face_pixelator/__init__.py
-
-#COPY realtime_demo.py /app/realtime_demo.py
-ADD . /auto_face_pixelator
-WORKDIR /auto_face_pixelator
+# COPY stuff
+ADD . /app
+WORKDIR /app
 RUN pip3 install -r requirements.txt
-COPY . /auto_face_pixelator
+COPY . /app
 
 # Port forwardnig
 EXPOSE 5000
 
-## This is for web app
-CMD python3 server.py
-
-# This is API
-#CMD python3 api.py
-
-# Launch Flask app
-#ENV FLASK_APP /auto_face_pixelator/server.py
-#CMD flask run
+## Run web app
+CMD python3 app.py

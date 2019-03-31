@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 Created on March 17
-Main process for mosaic effect
+functions for image process
 @author: Akihiro Inui
 """
 
@@ -37,10 +37,9 @@ def sunglasses(image, sunglasses_img_data):
 
 
     # Display the results
-    for top, right, bottom, left in face_locations:
+    for top, right, bottom, left in face_info:
 
         # Resize sunglasses image
-        a = image[top:bottom, left:right]
         resize_sunglasses = cv2.resize(sunglasses_img_data, dsize=(bottom-top, right-left))
         image[top:bottom, left:right] = resize_sunglasses
 
